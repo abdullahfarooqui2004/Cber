@@ -1,0 +1,30 @@
+# Dependencies (matches both client/node_modules and server/node_modules)
+node_modules/
+*/node_modules/
+
+# Environment variables (vital for banking & auth secrets)
+.env
+.env.*
+!.env.example
+*.env.local
+
+# Production build outputs
+client/dist/
+client/build/
+dist/
+build/
+
+# Logs & Debuggers
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE & Editor folders
+.vscode/
+.idea/

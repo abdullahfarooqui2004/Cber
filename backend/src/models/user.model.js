@@ -38,6 +38,9 @@ schema.methods.generateAuthToken = function () {
 			_id: this._id,
 		},
 		configEnv.JWT_SECRET,
+        {
+            expiresIn: "24h"
+        }
 	);
     return token;
 };

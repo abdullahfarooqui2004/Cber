@@ -1,6 +1,6 @@
 import {body} from "express-validator"
 
-const registerValidationRules = [
+export const registerValidationRules = [
     body("fullname.firstname")
         .trim()
         .isLength(3)
@@ -24,6 +24,16 @@ const registerValidationRules = [
 		.withMessage("Password must contain at least one number"),
 ];
 
+export const loginValidationRules = [
+	body("email")
+		.trim()
+		.isEmail()
+		.withMessage("Must provide a valid email address")
+		.normalizeEmail(),
 
-
-export const rules = {registerValidationRules}
+	body("password")
+		.isLength({ min: 8 })
+		.withMessage("Password must be at least 8 characters long")
+		.matches(/\d/)
+		.withMessage("Password must contain at least one number"),
+];

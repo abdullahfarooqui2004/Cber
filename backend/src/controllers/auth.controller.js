@@ -15,6 +15,11 @@ export const register = async (req, res) => {
 
     const {fullname, email, password} = req.body;
 
+    const alreadyExists = await userModel.findOne({email})
+    if(alreadyExists){
+        return res.status(409).json({message: "Email already exists"})
+    }
+
     const hashedPassword = await userModel.hashPassword(password)
 
     const user = await createUser({
@@ -73,11 +78,11 @@ export const profile = async (req, res) => {
 }
 
 export const logout = async (req, res) => {
-    res.clearCookie("token")
-
     const token = req.cookies.token || req.headers.authorization.split(" ")[1];
 
     await BlackListModel.create({token})
+
+    res.clearCookie("token")
 
     return res.status(200).json({
         message: "Logged Out"

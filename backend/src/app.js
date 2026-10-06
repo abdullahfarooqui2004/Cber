@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import cors from "cors"
 import authRouter from "./routes/auth.route.js";
 import cookieParser from "cookie-parser"
+import captainRouter from "./routes/captain.route.js";
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-app.use("/api/auth", authRouter)
+app.use("/api/user", authRouter)
+app.use("/api/captain", captainRouter)
 
 export default app

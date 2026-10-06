@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs"
+import configEnv from "../config/config.js"
 
 const schema = new mongoose.Schema({
 	fullname: {

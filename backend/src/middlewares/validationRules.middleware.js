@@ -24,4 +24,6 @@ const registerValidationRules = [
 		.withMessage("Password must contain at least one number"),
 ];
 
-export default registerValidationRules
+
+
+export const rules = {registerValidationRules}

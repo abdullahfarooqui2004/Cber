@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import logo from "../assets/logo.svg"
+import {Toaster} from 'react-hot-toast'
 
 export default function UserAuthLayout() {
 	return (
@@ -10,7 +11,7 @@ export default function UserAuthLayout() {
                     Cber
                 </h2>
 			</div>
-                
+                <Toaster/>   
 				<Outlet />
         </div>
 	);

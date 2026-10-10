@@ -1,29 +1,58 @@
 import {useState} from "react"
-import {NavLink} from "react-router-dom"
+import {useNavigate ,NavLink} from "react-router-dom"
 import { PATHS } from "../../routes/paths"
+import {api} from "../../utils/axios.js";
+import { useDispatch } from "react-redux";
+import { setCredentialsUser } from "../../store/slices/authSlice";
+import toast from 'react-hot-toast'
 
 const UserRegister = () => {
     const [firstname, setFirstname] = useState("")
     const [lastname, setLastname] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [userData, setUserData] = useState({})
+    const [loading, setLoading] = useState(false)
 
-    const submitHandler = (e) => {
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
+
+    const submitHandler = async (e) => {
         e.preventDefault();
-        setUserData({
-            fullname : {
+    const newUserData = {
+        fullname: {
             firstname,
-            lastname
-            },
-            email,
-            password
-        })
-        setEmail('')
-        setPassword('')
-        setFirstname("")
-        setLastname("")
+            lastname,
+          },
+          email,
+          password,
+    }
+    setLoading(true);
+
+        try {
+            const res = await api.post('/user/register', newUserData)
+            if(res.status === 201){
+                const {token, user} = res.data;
+
+                dispatch(setCredentialsUser({token, user}))
+                localStorage.setItem("token", token)
+
+                toast.success("Registration completed")
+
+            }
+
+            navigate("/")
+            
+        } catch (error) {
+            console.log("Error: ", error)
+            toast.error("Incorrect credentials")
+          } finally {
+            setLoading(false);
+          }
+        
+
     } 
+
 
   return (
 		<div className="p-7 h-screen flex flex-col justify-between">
@@ -76,7 +105,7 @@ const UserRegister = () => {
 				{/* Submit */}
 
 				<button className="bg-[#1a5fb4] font-semibold text-white mb-7 rounded px-4 py-2 w-full text-lg placeholder:text-base">
-					Register
+                    {loading ? "Wait a sec..." : "Register"}
 				</button>
 
 
@@ -96,5 +125,6 @@ const UserRegister = () => {
   );
 
 }
+
 
 export default UserRegister

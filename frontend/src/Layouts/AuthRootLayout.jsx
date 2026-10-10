@@ -1,6 +1,6 @@
 import {Outlet} from 'react-router-dom'
 
-const RootLayout = () => {
+const AuthRootLayout = () => {
   return (
     <>
     <div className="w-full h-screen">
@@ -10,4 +10,4 @@ const RootLayout = () => {
   )
 }
 
-export default RootLayout
+export default AuthRootLayout

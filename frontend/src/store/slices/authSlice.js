@@ -1,20 +1,36 @@
 import {createSlice} from "@reduxjs/toolkit"
-import getCookie from "../../utils/cookie.js"
 
 const authSlice = createSlice({
-    name: "Auth",
+    name: "auth",
     initialState: {
         user: null,
-        // token: getCookie("token") || null,
-        isAuthenticated: false
+        token: "", 
+        isAuthenticated: false,
+        isCaptain: false
     },
     reducers: {
-        setCredentials : (state, action) => {
+        setCredentialsUser : (state, action) => {
+            const {token, user} = action.payload
+            state.user = user
+            state.token = token; 
+            state.isCaptain = false;
+            state.isAuthenticated = true
+        },
+        setCredentialsCaptain: (state, action) => {
+            const {token, captain} = action.payload;
+            state.user = captain
+            state.token = token
+            state.isCaptain = true;
+            state.isAuthenticated = true
+        },
 
+        logout: (state) => {
+            state.user = null
+            state.isAuthenticated= false;
         }
 
     }
 })
 
-export const {setCredentials} = authSlice.actions
+export const {setCredentialsUser, setCredentialsCaptain, logout} = authSlice.actions
 export default authSlice.reducer 

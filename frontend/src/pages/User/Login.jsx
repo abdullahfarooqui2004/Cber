@@ -1,20 +1,49 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { PATHS } from "../../routes/paths";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { api } from "../../utils/axios";
+import { setCredentialsUser } from "../../store/slices/authSlice";
+import { toast } from "react-hot-toast";
+
 
 const UserLogin = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [userData, setUserData] = useState({})
+    const [loading, setLoading] = useState(false)
 
-    const submitHandler = (e) => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch("")
+
+    const submitHandler = async (e) => {
         e.preventDefault();
-        setUserData({
+
+        const userCred = {
             email,
             password
-        })
-        setEmail('')
-        setPassword('')
+        }
+
+        setLoading(true);
+
+        try{
+            const res = await api.post("/user/login", userCred)
+            if(res.status == 200){
+                const {token, user} = res.data
+                dispatch(setCredentialsUser({token, user}))
+                localStorage.setItem("token", token)
+                toast.success("Logged In")
+
+                navigate("/")
+            }
+
+        }catch(error){
+            console.log(error)
+            toast.error("Invalid Credentials")
+        }
+        finally{
+            setLoading(false)
+        }
+
     } 
 
   return (
@@ -40,8 +69,9 @@ const UserLogin = () => {
 					required
 				/>
 
+                {/* Submit */}
 				<button className="bg-[#1a5fb4] font-semibold text-white mb-7 rounded px-4 py-2 w-full text-lg placeholder:text-base">
-					Login
+                    {loading ? "Wait a sec": "Login"}
 				</button>
 
 				<p className="text-center">

@@ -8,7 +8,7 @@ const authRouter = Router()
 authRouter.get("/", authController.test)
 authRouter.post("/register", userRegisterValidationRules, authController.register)
 authRouter.post("/login", userLoginValidationRules, authController.login)
-authRouter.post("/logout", authUser, authController.logout)
+authRouter.get("/logout", authUser, authController.logout)
 
 authRouter.get("/profile",authUser, authController.profile);
 

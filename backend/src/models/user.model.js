@@ -54,5 +54,5 @@ schema.statics.hashPassword = async function (password) {
 }
 
 
-const userModel = mongoose.model("user", schema)
+const userModel = mongoose.model("User", schema)
 export default userModel;

@@ -33,7 +33,10 @@ export const register = async (req, res) => {
 
     res.cookie('token', token);
 
-    return res.status(201).json({token, user})
+    return res.status(201).json({token, user: {
+        fullname: user.fullname,
+        email: user.email
+    }})
     
 }
 
@@ -69,7 +72,10 @@ export const login = async (req, res) => {
 
     return res.status(200).json({
         token,
-        user
+        user: {
+        fullname: user.fullname,
+        email: user.email,
+        }
     })
 }
 

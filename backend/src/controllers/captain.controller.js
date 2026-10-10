@@ -39,7 +39,11 @@ export const register = async (req, res) =>{
 
     return res.status(201).json({
         token,
-        captain
+        captain: {
+            fullname: captain.fullname,
+            email: captain.email,
+            vehicle: captain.vehicle
+        }
     })
 }
 
@@ -75,7 +79,11 @@ export const login = async (req, res) => {
 
     return res.status(200).json({
         token,
-        captain
+        captain: {
+            fullname: captain.fullname,
+            email: captain.email,
+            vehicle: captain.vehicle
+        }
     })
 }
 

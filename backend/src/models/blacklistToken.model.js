@@ -13,6 +13,6 @@ const schema = new mongoose.Schema({
     }
 })
 
-const BlackListModel = mongoose.model("BlackListModel", schema)
+const BlackListModel = mongoose.model("BlackListToken", schema)
 
 export default BlackListModel

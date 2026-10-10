@@ -86,5 +86,5 @@ schema.statics.hashPassword = async function (password) {
     return await bcrypt.hash(password, 10)
 }
 
-const CaptainModel = mongoose.model("CaptainModel", schema)
+const CaptainModel = mongoose.model("Captain", schema)
 export default CaptainModel;

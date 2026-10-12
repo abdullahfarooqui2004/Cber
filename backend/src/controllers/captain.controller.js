@@ -88,11 +88,22 @@ export const login = async (req, res) => {
 }
 
 export const logout = async (req, res) => {
-    const token = req.cookies.token || req.headers.authorization.split(" ")[1];
+    const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
 
-    await BlackListModel.create({token})
+    if (!token) {
+        return res.status(401).json({ message: "Unauthorized" })
+    }
+
+    try {
+    await BlackListModel.create({ token })
 
     res.clearCookie("token")
+        
+    } catch (error) {
+        console.log(error)
+        
+    }
+
 
     return res.status(200).json({
         message: "Logged Out"

@@ -67,7 +67,7 @@ const CaptainRegister = () => {
             }
         }
 
-        setLoading(false)
+        setLoading(true)
 
         try {
             const res = await api.post("/captain/register", captainCred);
@@ -75,10 +75,10 @@ const CaptainRegister = () => {
             const {token, captain} = res.data
             dispatch(setCredentialsCaptain({token, captain}))
             localStorage.setItem("token", token)
+            localStorage.setItem("captain", JSON.stringify(captain))
             toast.success("Registered")
             }
 
-            navigate("/")
             
         } catch (error) {
             console.log("captiani: ", error)
@@ -86,6 +86,7 @@ const CaptainRegister = () => {
         }
         finally{
             setLoading(false)
+            navigate("/captain")
         }
 	};
 

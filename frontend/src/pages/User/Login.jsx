@@ -12,8 +12,8 @@ const UserLogin = () => {
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
 
-    const navigate = useNavigate()
     const dispatch = useDispatch("")
+    const navigate = useNavigate();
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -31,9 +31,9 @@ const UserLogin = () => {
                 const {token, user} = res.data
                 dispatch(setCredentialsUser({token, user}))
                 localStorage.setItem("token", token)
+                localStorage.setItem("user", JSON.stringify(user))
                 toast.success("Logged In")
 
-                navigate("/")
             }
 
         }catch(error){
@@ -42,6 +42,7 @@ const UserLogin = () => {
         }
         finally{
             setLoading(false)
+            navigate("/")
         }
 
     } 

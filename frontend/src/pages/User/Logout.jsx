@@ -24,9 +24,10 @@ const Logout = () => {
             }
             finally{
                 localStorage.removeItem("token");
+                localStorage.removeItem("user");
                 dispatch(logout())
 
-                navigate("/home", {replace: true})
+                navigate("/home/login", {replace: true})
             }
         };
         handleLogout();

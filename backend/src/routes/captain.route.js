@@ -10,7 +10,7 @@ const captainRouter = Router();
 captainRouter.get("/", captainController.test);
 captainRouter.post("/register", captainRegisterValidationRules, captainController.register);
 captainRouter.post("/login", userLoginValidationRules, captainController.login);
-captainRouter.post("/logout", authCaptain, captainController.logout);
+captainRouter.get("/logout", authCaptain, captainController.logout);
 
 captainRouter.get("/profile", authCaptain, captainController.profile)
 

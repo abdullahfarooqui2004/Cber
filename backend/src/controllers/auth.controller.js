@@ -80,13 +80,19 @@ export const login = async (req, res) => {
 }
 
 export const profile = async (req, res) => {
-    return res.status(200).json(req.user)
+    return res.status(200).json({
+        user: req.user
+    })
 }
 
 export const logout = async (req, res) => {
-    const token = req.cookies.token || req.headers.authorization.split(" ")[1];
+    const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
 
-    await BlackListModel.create({token})
+    if (!token) {
+        return res.status(401).json({ message: "Unauthorized" })
+    }
+
+    await BlackListModel.create({ token })
 
     res.clearCookie("token")
 

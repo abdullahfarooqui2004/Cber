@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { PATHS } from "./paths";
-import AuthRootLayout from "../Layouts/AuthRootLayout"
+import AuthRootLayout from "../Layouts/AuthRootLayout";
 import Home from "../pages/Home";
 import UserLogin from "../pages/User/Login";
 import UserAuthLayout from "../Layouts/UserAuthLayout";
@@ -8,15 +8,17 @@ import UserRegister from "../pages/User/Register";
 import CaptainAuthLayout from "../Layouts/CaptionAuthLayout";
 import CaptainLogin from "../pages/Captain/Login";
 import CaptainRegister from "../pages/Captain/Register";
+import CaptainLogout from "../pages/Captain/Logout";
 import NotFound from "../pages/NotFound";
 
-import Dashboard from "../pages/Dashboard";
+import CaptainHome from "../pages/Captain/Home";
 import UserRootLayout from "../Layouts/UserRootLayout";
 import Logout from "../pages/User/Logout";
+import UserHome from "../pages/User/Home";
+import CaptainRootLayout from "../Layouts/CaptainRootLayout";
 
 const router = createBrowserRouter([
-
-    // Public Layout
+	// Public Layout
 
 	{
 		path: PATHS.HOME,
@@ -38,10 +40,10 @@ const router = createBrowserRouter([
 						path: PATHS.USER.SIGNUP,
 						element: <UserRegister />,
 					},
-                    {
-                        path: PATHS.USER.LOGOUT,
-                        element: <Logout/>
-                    }
+					{
+						path: PATHS.USER.LOGOUT,
+						element: <Logout />,
+					},
 				],
 			},
 
@@ -58,6 +60,10 @@ const router = createBrowserRouter([
 						path: "signup",
 						element: <CaptainRegister />,
 					},
+					{
+						path: "logout",
+						element: <CaptainLogout />,
+					},
 				],
 			},
 
@@ -69,14 +75,30 @@ const router = createBrowserRouter([
 		],
 	},
 
-    // Protected Layouts
+	// Protected Layouts
 
-    // Dashboard
-    
+	// Dashboard
+
 	{
-		path: PATHS.DASHBOARD,
-		element: <UserRootLayout/>,
-		children: [{ index: true, element: <Dashboard /> },],
+		path: PATHS.DASHBOARD.USER.HOME,
+		element: <UserRootLayout />,
+		children: [
+            {
+                 index: true,
+                 element: <UserHome /> 
+            }
+        ],
+	},
+
+	{
+		path: PATHS.DASHBOARD.CAPTAIN.HOME,
+		element: <CaptainRootLayout />,
+		children: [
+			{
+				index: true,
+				element: <CaptainHome />,
+			},
+		],
 	},
 ]);
 

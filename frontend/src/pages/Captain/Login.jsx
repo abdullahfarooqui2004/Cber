@@ -30,14 +30,15 @@ const CaptainLogin = () => {
 				const { token, captain } = res.data;
 				dispatch(setCredentialsCaptain({ token, captain }));
 				localStorage.setItem("token", token);
+                localStorage.setItem("captain", JSON.stringify(captain))
 				toast.success("Logged In");
 			}
 
-			navigate("/");
 		} catch (error) {
 			console.log("Error: ", error);
 		} finally {
 			setLoading(false);
+			navigate("/captain");
 		}
 	};
 
